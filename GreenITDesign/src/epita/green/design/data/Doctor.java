@@ -1,7 +1,5 @@
 package epita.green.design.data;
 
-import javax.xml.soap.Text;
-
 /**
  * @author Bhrigu Mahajan
  *
@@ -184,16 +182,18 @@ public class Doctor {
 		this.image = image;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Doctor [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", emailId=" + emailId
-				+ ", phone=" + phone + ", gender=" + gender + ", address=" + address + ", city=" + city
-				+ ", speciality=" + speciality + ", openings=" + openings + ", image=" + image + "]";
+		return "Doctor [id=" + id + ", firstName=" + firstName + ", lastName="
+				+ lastName + ", emailId=" + emailId + ", phone=" + phone
+				+ ", gender=" + gender + ", address=" + address + ", city="
+				+ city + ", speciality=" + speciality + ", openings=" + openings
+				+ ", image=" + image + "]";
 	}
-	
-	
 
 }
