@@ -47,7 +47,7 @@ public class SearchServlet extends HttpServlet {
 		}
 
 		if (results.isEmpty()) {
-			msg = "No identities foud.";
+			msg = "No doctors foud.";
 		}
 
 		request.setAttribute("msg", msg);

@@ -21,9 +21,13 @@
 </head>
 <body>
 
+  
+
 <div class="container">
   <h2 style="text-align:center;">Search for your Doctor</h2>  
-  
+  <c:if test="${not empty msg}">
+	<div class="alert alert-warning" role="alert">${msg}</div>
+  </c:if>
   	<!-- search criteria -->
 	<div class="panel panel-default">
   	  <div class="panel-heading">
