@@ -1,8 +1,10 @@
 package epita.green.data.access;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,33 +25,35 @@ import epita.green.design.data.Openings;
  *
  */
 public class ReadJson {
-/**
- * 
- * @param args
- * @throws ParseException
- * @throws org.json.simple.parser.ParseException
- */
+	/**
+	 * 
+	 * @param args
+	 * @throws ParseException
+	 * @throws org.json.simple.parser.ParseException
+	 */
 	@SuppressWarnings("unchecked")
-	public List<Doctor>  getListOfDoctors() throws ParseException, org.json.simple.parser.ParseException {
+	public List<Doctor> getListOfDoctors()
+			throws ParseException, org.json.simple.parser.ParseException {
 
 		JSONParser parser = new JSONParser();
 		List<Doctor> doctorList = new ArrayList<>();
-		Map<Long,String> firstNameMap= new HashMap<>();
-		Map<Long,String> lastNameMap= new HashMap<>();
-		Map<Long,String> addressMap= new HashMap<>();
-		Map<Long,String> emailMap= new HashMap<>();
-		Map<Long,String> phoneMap= new HashMap<>();
-		Map<Long,String> specialityMap= new HashMap<>();
+		Map<Long, String> firstNameMap = new HashMap<>();
+		Map<Long, String> lastNameMap = new HashMap<>();
+		Map<Long, String> addressMap = new HashMap<>();
+		Map<Long, String> emailMap = new HashMap<>();
+		Map<Long, String> phoneMap = new HashMap<>();
+		Map<Long, String> specialityMap = new HashMap<>();
 
-		/*List<String> firstnameList= new ArrayList<>();
-		List<String> lastnameList= new ArrayList<>();
-		List<String> addressList= new ArrayList<>();
-		List<String> emailList= new ArrayList<>();
-		List<String> phoneList= new ArrayList<>();
-		List<String> specialityList= new ArrayList<>();*/
+		/*
+		 * List<String> firstnameList= new ArrayList<>(); List<String>
+		 * lastnameList= new ArrayList<>(); List<String> addressList= new
+		 * ArrayList<>(); List<String> emailList= new ArrayList<>();
+		 * List<String> phoneList= new ArrayList<>(); List<String>
+		 * specialityList= new ArrayList<>();
+		 */
 
 		try {
-			Object obj = parser.parse(new FileReader("C:\\Users\\Bhrigu Mahajan\\Desktop\\testfile.json"));
+			Object obj = parser.parse(getReaderFromFile());
 			List<Object> doc = (List<Object>) (obj);
 			for (int i = 0; i < doc.size(); ++i) {
 				JSONObject rec = (JSONObject) doc.get(i);
@@ -64,16 +68,17 @@ public class ReadJson {
 				String speciality = (String) rec.get("specialty");
 				String image = (String) rec.get("image");
 
-				//System.out.println(rec.get("openings").toString());
+				// System.out.println(rec.get("openings").toString());
 				Openings opening = new Openings();
 				if (!rec.get("openings").toString().isEmpty()) {
 					// Object jsonOpenings = null;
 					JSONArray jsonOpenings = (JSONArray) rec.get("openings");
-					//System.out.println(jsonOpenings.toString());
+					// System.out.println(jsonOpenings.toString());
 
 					if (!(jsonOpenings.equals(null))) {
 						for (int k = 0; k < jsonOpenings.size(); ++k) {
-							JSONObject objects = (JSONObject) jsonOpenings.get(0);
+							JSONObject objects = (JSONObject) jsonOpenings
+									.get(0);
 							for (int j = 0; j < objects.size(); j++) {
 								List<Days> day = new ArrayList<>();
 								for (int m = 1; m < 8; m++) {
@@ -82,7 +87,7 @@ public class ReadJson {
 									String getDay = getDayOfWeek(m);
 									array.add(objects.get(getDay));
 									daysList.add(setDayList(array, getDay));
-									//System.out.println(daysList.toString());
+									// System.out.println(daysList.toString());
 									day.addAll(daysList);
 								}
 								opening.setDays(day);
@@ -95,23 +100,24 @@ public class ReadJson {
 					emailMap.put(id, email);
 					phoneMap.put(id, phone);
 					specialityMap.put(id, speciality);
-					
-					/*lastnameList.add(lastName);
-					addressList.add(address);
-					emailList.add(email);
-					phoneList.add(phone);
-					specialityList.add(speciality)*/;
-					//System.out.println(opening.toString());
+
+					/*
+					 * lastnameList.add(lastName); addressList.add(address);
+					 * emailList.add(email); phoneList.add(phone);
+					 * specialityList.add(speciality)
+					 */;
+					// System.out.println(opening.toString());
 				}
-				Doctor doctor = transformDoctor(id, firstName, lastName, email, gender, address, city, phone,
-						speciality, image, opening);
+				Doctor doctor = transformDoctor(id, firstName, lastName, email,
+						gender, address, city, phone, speciality, image,
+						opening);
 				doctorList.add(doctor);
 			}
-			//System.out.print(Arrays.asList(doctorList).toString() );
-			System.out.print(Arrays.asList(firstNameMap).toString() );
-			System.out.print(Arrays.asList(lastNameMap).toString() );
-			System.out.print(Arrays.asList(addressMap).toString() );
-			System.out.print(Arrays.asList(emailMap).toString() );
+			// System.out.print(Arrays.asList(doctorList).toString() );
+			System.out.print(Arrays.asList(firstNameMap).toString());
+			System.out.print(Arrays.asList(lastNameMap).toString());
+			System.out.print(Arrays.asList(addressMap).toString());
+			System.out.print(Arrays.asList(emailMap).toString());
 
 			System.out.print("\n\n\n");
 		} catch (FileNotFoundException e) {
@@ -121,15 +127,15 @@ public class ReadJson {
 		}
 		return doctorList;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public Map<Long, Doctor> getListById() {
-		
+
 		JSONParser parser = new JSONParser();
-		Map<Long,Doctor> listById= new HashMap<>();
+		Map<Long, Doctor> listById = new HashMap<>();
 		Object obj;
 		try {
-			obj = parser.parse(new FileReader("./resources/designgreendata.json"));
+			obj = parser.parse(getReaderFromFile());
 			List<Object> doc = (List<Object>) (obj);
 			for (int i = 0; i < doc.size(); ++i) {
 				JSONObject rec = (JSONObject) doc.get(i);
@@ -142,36 +148,33 @@ public class ReadJson {
 				String city = (String) rec.get("city");
 				String phone = (String) rec.get("phone");
 				String speciality = (String) rec.get("specialty");
-				
-				String image=null;
-				Openings opening=null;
-				Doctor doctor = transformDoctor(id, firstName, lastName, email, gender, address, city, phone,
-						speciality, image, opening);
+
+				String image = null;
+				Openings opening = null;
+				Doctor doctor = transformDoctor(id, firstName, lastName, email,
+						gender, address, city, phone, speciality, image,
+						opening);
 				listById.put(id, doctor);
 
 			}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (org.json.simple.parser.ParseException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(listById);
 		return listById;
-		
+
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public Map<Long, String> getListofFirstNames() {
-		
+
 		JSONParser parser = new JSONParser();
-		Map<Long,String> firstNameMap= new HashMap<>();
+		Map<Long, String> firstNameMap = new HashMap<>();
 		Object obj;
 		try {
-			obj = parser.parse(new FileReader("./resources/designgreendata.json"));
+
+			obj = parser.parse(getReaderFromFile());
 			List<Object> doc = (List<Object>) (obj);
 			for (int i = 0; i < doc.size(); ++i) {
 				JSONObject rec = (JSONObject) doc.get(i);
@@ -191,17 +194,17 @@ public class ReadJson {
 			e.printStackTrace();
 		}
 		return firstNameMap;
-		
+
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public Map<Long, String> getListofLastNames() {
-		
+
 		JSONParser parser = new JSONParser();
-		Map<Long,String> lastNameMap= new HashMap<>();
+		Map<Long, String> lastNameMap = new HashMap<>();
 		Object obj;
 		try {
-			obj = parser.parse(new FileReader("./resources/designgreendata.json"));
+			obj = parser.parse(getReaderFromFile());
 			List<Object> doc = (List<Object>) (obj);
 			for (int i = 0; i < doc.size(); ++i) {
 				JSONObject rec = (JSONObject) doc.get(i);
@@ -221,17 +224,17 @@ public class ReadJson {
 			e.printStackTrace();
 		}
 		return lastNameMap;
-		
+
 	}
 
 	@SuppressWarnings("unchecked")
 	public Map<Long, String> getListofAddress() {
-		
+
 		JSONParser parser = new JSONParser();
-		Map<Long,String> addressMap= new HashMap<>();
+		Map<Long, String> addressMap = new HashMap<>();
 		Object obj;
 		try {
-			obj = parser.parse(new FileReader("./resources/designgreendata.json"));
+			obj = parser.parse(getReaderFromFile());
 			List<Object> doc = (List<Object>) (obj);
 			for (int i = 0; i < doc.size(); ++i) {
 				JSONObject rec = (JSONObject) doc.get(i);
@@ -251,17 +254,17 @@ public class ReadJson {
 			e.printStackTrace();
 		}
 		return addressMap;
-		
+
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public Map<Long, String> getListofEmails() {
-		
+
 		JSONParser parser = new JSONParser();
-		Map<Long,String> emailMap= new HashMap<>();
+		Map<Long, String> emailMap = new HashMap<>();
 		Object obj;
 		try {
-			obj = parser.parse(new FileReader("./resources/designgreendata.json"));
+			obj = parser.parse(getReaderFromFile());
 			List<Object> doc = (List<Object>) (obj);
 			for (int i = 0; i < doc.size(); ++i) {
 				JSONObject rec = (JSONObject) doc.get(i);
@@ -281,17 +284,17 @@ public class ReadJson {
 			e.printStackTrace();
 		}
 		return emailMap;
-		
+
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public Map<Long, String> getListofPhones() {
-		
+
 		JSONParser parser = new JSONParser();
-		Map<Long,String> phoneMap= new HashMap<>();
+		Map<Long, String> phoneMap = new HashMap<>();
 		Object obj;
 		try {
-			obj = parser.parse(new FileReader("./resources/designgreendata.json"));
+			obj = parser.parse(getReaderFromFile());
 			List<Object> doc = (List<Object>) (obj);
 			for (int i = 0; i < doc.size(); ++i) {
 				JSONObject rec = (JSONObject) doc.get(i);
@@ -311,17 +314,17 @@ public class ReadJson {
 			e.printStackTrace();
 		}
 		return phoneMap;
-		
+
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public Map<Long, String> getListofSpeciality() {
-		
+
 		JSONParser parser = new JSONParser();
-		Map<Long,String> specialityMap= new HashMap<>();
+		Map<Long, String> specialityMap = new HashMap<>();
 		Object obj;
 		try {
-			obj = parser.parse(new FileReader("./resources/designgreendata.json"));
+			obj = parser.parse(getReaderFromFile());
 			List<Object> doc = (List<Object>) (obj);
 			for (int i = 0; i < doc.size(); ++i) {
 				JSONObject rec = (JSONObject) doc.get(i);
@@ -341,44 +344,46 @@ public class ReadJson {
 			e.printStackTrace();
 		}
 		return specialityMap;
-		
+
 	}
-/**
- * @param id
- * @param firstName
- * @param lastName
- * @param email
- * @param gender
- * @param address
- * @param city
- * @param phone
- * @param speciality
- * @param image
- * @param opening
- * @return
- */
-private static Doctor transformDoctor(Long id, String firstName, String lastName, String email, String gender,
-		String address, String city, String phone, String speciality, String image, Openings opening) {
-	Doctor doctor = new Doctor();
-	doctor.setId(id);
-	doctor.setFirstName(firstName);
-	doctor.setLastName(lastName);
-	doctor.setEmailId(email);
-	doctor.setGender(gender);
-	doctor.setAddress(address);
-	doctor.setCity(city);
-	doctor.setPhone(phone);
-	doctor.setSpeciality(speciality);
-	doctor.setOpenings(opening);
-	doctor.setImage(image);
-	return doctor;
-}
+	/**
+	 * @param id
+	 * @param firstName
+	 * @param lastName
+	 * @param email
+	 * @param gender
+	 * @param address
+	 * @param city
+	 * @param phone
+	 * @param speciality
+	 * @param image
+	 * @param opening
+	 * @return
+	 */
+	private static Doctor transformDoctor(Long id, String firstName,
+			String lastName, String email, String gender, String address,
+			String city, String phone, String speciality, String image,
+			Openings opening) {
+		Doctor doctor = new Doctor();
+		doctor.setId(id);
+		doctor.setFirstName(firstName);
+		doctor.setLastName(lastName);
+		doctor.setEmailId(email);
+		doctor.setGender(gender);
+		doctor.setAddress(address);
+		doctor.setCity(city);
+		doctor.setPhone(phone);
+		doctor.setSpeciality(speciality);
+		doctor.setOpenings(opening);
+		doctor.setImage(image);
+		return doctor;
+	}
 
 	private static Days setDayList(JSONArray array, String getDay) {
 		Days days = new Days();
 		days.setDay(getDay);
 		JSONObject jsonValue = (JSONObject) array.get(0);
-		if (jsonValue!=null) {
+		if (jsonValue != null) {
 			String closeTime = (String) jsonValue.get("close");
 			String openTime = (String) jsonValue.get("open");
 			if (!closeTime.isEmpty()) {
@@ -398,28 +403,34 @@ private static Doctor transformDoctor(Long id, String firstName, String lastName
 	private static String getDayOfWeek(int value) {
 		String day = "";
 		switch (value) {
-		case 1:
-			day = "mon";
-			break;
-		case 2:
-			day = "tue";
-			break;
-		case 3:
-			day = "wed";
-			break;
-		case 4:
-			day = "thu";
-			break;
-		case 5:
-			day = "fri";
-			break;
-		case 6:
-			day = "sat";
-			break;
-		case 7:
-			day = "sun";
-			break;
+			case 1 :
+				day = "mon";
+				break;
+			case 2 :
+				day = "tue";
+				break;
+			case 3 :
+				day = "wed";
+				break;
+			case 4 :
+				day = "thu";
+				break;
+			case 5 :
+				day = "fri";
+				break;
+			case 6 :
+				day = "sat";
+				break;
+			case 7 :
+				day = "sun";
+				break;
 		}
 		return day;
+	}
+	private Reader getReaderFromFile() {
+		InputStream stream = this.getClass()
+				.getResourceAsStream("/designgreendata.json");
+		Reader reader = new InputStreamReader(stream);
+		return reader;
 	}
 }
