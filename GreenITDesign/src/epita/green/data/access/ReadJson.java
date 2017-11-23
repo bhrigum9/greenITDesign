@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -114,12 +113,12 @@ public class ReadJson {
 				doctorList.add(doctor);
 			}
 			// System.out.print(Arrays.asList(doctorList).toString() );
-			System.out.print(Arrays.asList(firstNameMap).toString());
-			System.out.print(Arrays.asList(lastNameMap).toString());
-			System.out.print(Arrays.asList(addressMap).toString());
-			System.out.print(Arrays.asList(emailMap).toString());
-
-			System.out.print("\n\n\n");
+			// System.out.print(Arrays.asList(firstNameMap).toString());
+			// System.out.print(Arrays.asList(lastNameMap).toString());
+			// System.out.print(Arrays.asList(addressMap).toString());
+			// System.out.print(Arrays.asList(emailMap).toString());
+			//
+			// System.out.print("\n\n\n");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -161,7 +160,6 @@ public class ReadJson {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(listById);
 		return listById;
 
 	}

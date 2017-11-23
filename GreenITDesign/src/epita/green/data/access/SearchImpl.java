@@ -14,33 +14,29 @@ import epita.green.design.data.SearchHandler;
  */
 public class SearchImpl {
 
-	public List<Doctor> compareById(String firstName,String lastName,String address,String phone,String email,String speciality) {
+	public List<Doctor> compareById(String firstName, String lastName,
+			String address, String phone, String email, String speciality) {
 		ReadJson readJson = new ReadJson();
 		Map<Long, Doctor> docList = readJson.getListById();
-		List<Long> ids=null;
+		List<Long> ids = null;
 		SearchImpl searchImpl = new SearchImpl();
 		if (!firstName.isEmpty()) {
-			 ids = searchImpl.compareFirstName(firstName);
+			ids = searchImpl.compareFirstName(firstName);
+		} else if (!lastName.isEmpty()) {
+			ids = searchImpl.compareLastName(lastName);
+		} else if (!address.isEmpty()) {
+			ids = searchImpl.compareAddress(address);
+		} else if (!email.isEmpty()) {
+			ids = searchImpl.compareEmail(email);
+		} else if (!phone.isEmpty()) {
+			ids = searchImpl.comparePhone(phone);
+		} else if (!speciality.isEmpty()) {
+			ids = searchImpl.compareSpeciality(speciality);
 		}
-		else if (!lastName.isEmpty()) {
-			 ids = searchImpl.compareLastName(lastName);
-		}
-		else if (!address.isEmpty()) {
-			 ids = searchImpl.compareAddress(address);
-		}
-		else if (!email.isEmpty()) {
-			 ids = searchImpl.compareEmail(email);
-		}
-		else if (!phone.isEmpty()) {
-			 ids = searchImpl.comparePhone(phone);
-		}
-		else if (!speciality.isEmpty()) {
-			 ids = searchImpl.compareSpeciality(speciality);
-		}
-		List<Doctor> doctors= new ArrayList<>();
+		List<Doctor> doctors = new ArrayList<>();
 		for (Long nameId : ids) {
 			docList.get(nameId);
-			System.out.println(docList.get(nameId));
+			// System.out.println(docList.get(nameId));
 			doctors.add(docList.get(nameId));
 		}
 
@@ -54,7 +50,7 @@ public class SearchImpl {
 		for (Entry<Long, String> firstNames : firstNameMap.entrySet()) {
 			if (firstNames.getValue().contains(firstName)) {
 				Long id = firstNames.getKey();
-				System.out.println(id);
+				// System.out.println(id);
 				ids.add(id);
 			}
 		}
@@ -69,7 +65,7 @@ public class SearchImpl {
 		for (Entry<Long, String> firstNames : firstNameMap.entrySet()) {
 			if (firstNames.getValue().contains(lastName)) {
 				Long id = firstNames.getKey();
-				System.out.println(id);
+				// System.out.println(id);
 				ids.add(id);
 			}
 		}
@@ -84,7 +80,7 @@ public class SearchImpl {
 		for (Entry<Long, String> firstNames : firstNameMap.entrySet()) {
 			if (firstNames.getValue().contains(address)) {
 				Long id = firstNames.getKey();
-				System.out.println(id);
+				// System.out.println(id);
 				ids.add(id);
 			}
 		}
@@ -99,7 +95,7 @@ public class SearchImpl {
 		for (Entry<Long, String> firstNames : firstNameMap.entrySet()) {
 			if (firstNames.getValue().contains(phone)) {
 				Long id = firstNames.getKey();
-				System.out.println(id);
+				// System.out.println(id);
 				ids.add(id);
 			}
 		}
@@ -114,7 +110,7 @@ public class SearchImpl {
 		for (Entry<Long, String> firstNames : firstNameMap.entrySet()) {
 			if (firstNames.getValue().contains(email)) {
 				Long id = firstNames.getKey();
-				System.out.println(id);
+				// System.out.println(id);
 				ids.add(id);
 			}
 		}
@@ -129,7 +125,7 @@ public class SearchImpl {
 		for (Entry<Long, String> firstNames : firstNameMap.entrySet()) {
 			if (firstNames.getValue().contains(speciality)) {
 				Long id = firstNames.getKey();
-				System.out.println(id);
+				// System.out.println(id);
 				ids.add(id);
 			}
 		}
