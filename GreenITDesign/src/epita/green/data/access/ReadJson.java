@@ -3,21 +3,15 @@ package epita.green.data.access;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.xml.soap.Text;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 
 import epita.green.design.data.Days;
@@ -135,7 +129,7 @@ public class ReadJson {
 		Map<Long,Doctor> listById= new HashMap<>();
 		Object obj;
 		try {
-			obj = parser.parse(new FileReader("C:\\Users\\Bhrigu Mahajan\\Desktop\\testfile.json"));
+			obj = parser.parse(new FileReader("./resources/designgreendata.json"));
 			List<Object> doc = (List<Object>) (obj);
 			for (int i = 0; i < doc.size(); ++i) {
 				JSONObject rec = (JSONObject) doc.get(i);
@@ -177,7 +171,7 @@ public class ReadJson {
 		Map<Long,String> firstNameMap= new HashMap<>();
 		Object obj;
 		try {
-			obj = parser.parse(new FileReader("C:\\Users\\Bhrigu Mahajan\\Desktop\\testfile.json"));
+			obj = parser.parse(new FileReader("./resources/designgreendata.json"));
 			List<Object> doc = (List<Object>) (obj);
 			for (int i = 0; i < doc.size(); ++i) {
 				JSONObject rec = (JSONObject) doc.get(i);
@@ -207,7 +201,7 @@ public class ReadJson {
 		Map<Long,String> lastNameMap= new HashMap<>();
 		Object obj;
 		try {
-			obj = parser.parse(new FileReader("C:\\Users\\Bhrigu Mahajan\\Desktop\\testfile.json"));
+			obj = parser.parse(new FileReader("./resources/designgreendata.json"));
 			List<Object> doc = (List<Object>) (obj);
 			for (int i = 0; i < doc.size(); ++i) {
 				JSONObject rec = (JSONObject) doc.get(i);
@@ -237,7 +231,7 @@ public class ReadJson {
 		Map<Long,String> addressMap= new HashMap<>();
 		Object obj;
 		try {
-			obj = parser.parse(new FileReader("C:\\Users\\Bhrigu Mahajan\\Desktop\\testfile.json"));
+			obj = parser.parse(new FileReader("./resources/designgreendata.json"));
 			List<Object> doc = (List<Object>) (obj);
 			for (int i = 0; i < doc.size(); ++i) {
 				JSONObject rec = (JSONObject) doc.get(i);
@@ -267,7 +261,7 @@ public class ReadJson {
 		Map<Long,String> emailMap= new HashMap<>();
 		Object obj;
 		try {
-			obj = parser.parse(new FileReader("C:\\Users\\Bhrigu Mahajan\\Desktop\\testfile.json"));
+			obj = parser.parse(new FileReader("./resources/designgreendata.json"));
 			List<Object> doc = (List<Object>) (obj);
 			for (int i = 0; i < doc.size(); ++i) {
 				JSONObject rec = (JSONObject) doc.get(i);
@@ -297,7 +291,7 @@ public class ReadJson {
 		Map<Long,String> phoneMap= new HashMap<>();
 		Object obj;
 		try {
-			obj = parser.parse(new FileReader("C:\\Users\\Bhrigu Mahajan\\Desktop\\testfile.json"));
+			obj = parser.parse(new FileReader("./resources/designgreendata.json"));
 			List<Object> doc = (List<Object>) (obj);
 			for (int i = 0; i < doc.size(); ++i) {
 				JSONObject rec = (JSONObject) doc.get(i);
@@ -327,7 +321,7 @@ public class ReadJson {
 		Map<Long,String> specialityMap= new HashMap<>();
 		Object obj;
 		try {
-			obj = parser.parse(new FileReader("C:\\Users\\Bhrigu Mahajan\\Desktop\\testfile.json"));
+			obj = parser.parse(new FileReader("./resources/designgreendata.json"));
 			List<Object> doc = (List<Object>) (obj);
 			for (int i = 0; i < doc.size(); ++i) {
 				JSONObject rec = (JSONObject) doc.get(i);
