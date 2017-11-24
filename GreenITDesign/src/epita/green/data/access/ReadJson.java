@@ -19,10 +19,10 @@ import epita.data.access.interfaces.IReadJsonInterface;
 import epita.green.design.data.Days;
 import epita.green.design.data.Doctor;
 import epita.green.design.data.Openings;
-import epita.green.statisc.design.methods.ReadJsonStaticMethods;
+import epita.green.statics.design.methods.ReadJsonStaticMethods;
 
 /**
- * @author Bhrigu Mahajan This class is used to prepare memory map(Database)
+ * @author Bhrigu Mahajan --This class is used to prepare memory map(Database)
  *
  */
 public class ReadJson implements IReadJsonInterface {

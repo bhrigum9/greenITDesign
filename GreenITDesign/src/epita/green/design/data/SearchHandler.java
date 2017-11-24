@@ -7,7 +7,7 @@ import epita.data.access.interfaces.IReadJsonInterface;
 import epita.green.data.access.ReadJson;
 
 /**
- * @author Bhrigu Mahajan
+ * @author Bhrigu Mahajan ----Handler class to handle methods
  *
  */
 public class SearchHandler {

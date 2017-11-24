@@ -1,7 +1,7 @@
 /**
  * 
  */
-package epita.green.statisc.design.methods;
+package epita.green.statics.design.methods;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
