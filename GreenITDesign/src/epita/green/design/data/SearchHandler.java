@@ -3,6 +3,7 @@ package epita.green.design.data;
 import java.util.List;
 import java.util.Map;
 
+import epita.data.access.interfaces.IReadJsonInterface;
 import epita.green.data.access.ReadJson;
 
 /**
@@ -10,16 +11,17 @@ import epita.green.data.access.ReadJson;
  *
  */
 public class SearchHandler {
+	public IReadJsonInterface readJsonInterface;
+
 	/**
 	 * 
-	 * @return
+	 * @return List of Object
 	 */
 	public List<Doctor> getSearchResult() {
 		List<Doctor> doctorList = null;
 		try {
-			ReadJson readJson = new ReadJson();
-			doctorList = readJson.getListOfDoctors();
-			doctorList.get(0);
+			readJsonInterface = new ReadJson();
+			doctorList = readJsonInterface.getListOfDoctors();
 		} catch (Exception e) {
 			System.out.println(e);
 			e.printStackTrace();
@@ -33,9 +35,9 @@ public class SearchHandler {
 	 */
 	public Map<Long, String> getByFirstName() {
 
-		ReadJson readJson = new ReadJson();
-		Map<Long, String> firstNameMap = readJson.getListofFirstNames();
-		System.out.println(firstNameMap.toString());
+		readJsonInterface = new ReadJson();
+		Map<Long, String> firstNameMap = readJsonInterface
+				.getListofFirstNames();
 		return firstNameMap;
 
 	}
@@ -45,45 +47,53 @@ public class SearchHandler {
 	 */
 	public Map<Long, String> getByLastName() {
 
-		ReadJson readJson = new ReadJson();
-		Map<Long, String> lastNameMap = readJson.getListofLastNames();
-		System.out.println(lastNameMap.toString());
+		readJsonInterface = new ReadJson();
+		Map<Long, String> lastNameMap = readJsonInterface.getListofLastNames();
 		return lastNameMap;
 
 	}
 	/**
 	 * 
-	 * @return
+	 * @return Map
 	 */
 	public Map<Long, String> getByAddress() {
 
-		ReadJson readJson = new ReadJson();
-		Map<Long, String> addressMap = readJson.getListofAddress();
-		System.out.println(addressMap.toString());
+		readJsonInterface = new ReadJson();
+		Map<Long, String> addressMap = readJsonInterface.getListofAddress();
 		return addressMap;
 
 	}
+	/**
+	 * 
+	 * @return Map
+	 */
 	public Map<Long, String> getByEmail() {
 
-		ReadJson readJson = new ReadJson();
-		Map<Long, String> emailMap = readJson.getListofEmails();
-		System.out.println(emailMap.toString());
+		readJsonInterface = new ReadJson();
+		Map<Long, String> emailMap = readJsonInterface.getListofEmails();
 		return emailMap;
 
 	}
+	/**
+	 * 
+	 * @return Map
+	 */
 	public Map<Long, String> getByPhone() {
 
-		ReadJson readJson = new ReadJson();
-		Map<Long, String> phoneMap = readJson.getListofPhones();
-		System.out.println(phoneMap.toString());
+		readJsonInterface = new ReadJson();
+		Map<Long, String> phoneMap = readJsonInterface.getListofPhones();
 		return phoneMap;
 
 	}
+	/**
+	 * 
+	 * @return Map
+	 */
 	public Map<Long, String> getBySpeciality() {
 
-		ReadJson readJson = new ReadJson();
-		Map<Long, String> specialityMap = readJson.getListofSpeciality();
-		System.out.println(specialityMap.toString());
+		readJsonInterface = new ReadJson();
+		Map<Long, String> specialityMap = readJsonInterface
+				.getListofSpeciality();
 		return specialityMap;
 
 	}

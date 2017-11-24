@@ -15,15 +15,17 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import epita.data.access.interfaces.IReadJsonInterface;
 import epita.green.design.data.Days;
 import epita.green.design.data.Doctor;
 import epita.green.design.data.Openings;
+import epita.green.statisc.design.methods.ReadJsonStaticMethods;
 
 /**
- * @author Bhrigu Mahajan
+ * @author Bhrigu Mahajan This class is used to prepare memory map(Database)
  *
  */
-public class ReadJson {
+public class ReadJson implements IReadJsonInterface {
 	/**
 	 * 
 	 * @param args
@@ -31,6 +33,12 @@ public class ReadJson {
 	 * @throws org.json.simple.parser.ParseException
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see epita.data.access.interfaces.IReadJsonInterface#getListOfDoctors()
+	 */
 	public List<Doctor> getListOfDoctors()
 			throws ParseException, org.json.simple.parser.ParseException {
 
@@ -72,9 +80,11 @@ public class ReadJson {
 								for (int m = 1; m < 8; m++) {
 									List<Days> daysList = new ArrayList<>();
 									JSONArray array = new JSONArray();
-									String getDay = getDayOfWeek(m);
+									String getDay = ReadJsonStaticMethods
+											.getDayOfWeek(m);
 									array.add(objects.get(getDay));
-									daysList.add(setDayList(array, getDay));
+									daysList.add(ReadJsonStaticMethods
+											.setDayList(array, getDay));
 									day.addAll(daysList);
 								}
 								opening.setDays(day);
@@ -89,9 +99,9 @@ public class ReadJson {
 					specialityMap.put(id, speciality);
 
 				}
-				Doctor doctor = transformDoctor(id, firstName, lastName, email,
-						gender, address, city, phone, speciality, image,
-						opening);
+				Doctor doctor = ReadJsonStaticMethods.transformDoctor(id,
+						firstName, lastName, email, gender, address, city,
+						phone, speciality, image, opening);
 				doctorList.add(doctor);
 			}
 
@@ -104,11 +114,13 @@ public class ReadJson {
 		}
 		return doctorList;
 	}
-	/**
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @return Map
+	 * @see epita.data.access.interfaces.IReadJsonInterface#getListById()
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public Map<Long, Doctor> getListById() {
 
 		JSONParser parser = new JSONParser();
@@ -131,9 +143,9 @@ public class ReadJson {
 
 				String image = null;
 				Openings opening = null;
-				Doctor doctor = transformDoctor(id, firstName, lastName, email,
-						gender, address, city, phone, speciality, image,
-						opening);
+				Doctor doctor = ReadJsonStaticMethods.transformDoctor(id,
+						firstName, lastName, email, gender, address, city,
+						phone, speciality, image, opening);
 				listById.put(id, doctor);
 
 			}
@@ -144,11 +156,14 @@ public class ReadJson {
 		return listById;
 
 	}
-	/**
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @return Map
+	 * @see
+	 * epita.data.access.interfaces.IReadJsonInterface#getListofFirstNames()
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public Map<Long, String> getListofFirstNames() {
 
 		JSONParser parser = new JSONParser();
@@ -178,11 +193,13 @@ public class ReadJson {
 		return firstNameMap;
 
 	}
-	/**
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @return Map
+	 * @see epita.data.access.interfaces.IReadJsonInterface#getListofLastNames()
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public Map<Long, String> getListofLastNames() {
 
 		JSONParser parser = new JSONParser();
@@ -211,11 +228,13 @@ public class ReadJson {
 		return lastNameMap;
 
 	}
-	/**
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @return Map
+	 * @see epita.data.access.interfaces.IReadJsonInterface#getListofAddress()
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public Map<Long, String> getListofAddress() {
 
 		JSONParser parser = new JSONParser();
@@ -244,11 +263,13 @@ public class ReadJson {
 		return addressMap;
 
 	}
-	/**
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @return Map
+	 * @see epita.data.access.interfaces.IReadJsonInterface#getListofEmails()
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public Map<Long, String> getListofEmails() {
 
 		JSONParser parser = new JSONParser();
@@ -277,11 +298,13 @@ public class ReadJson {
 		return emailMap;
 
 	}
-	/**
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @return Map
+	 * @see epita.data.access.interfaces.IReadJsonInterface#getListofPhones()
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public Map<Long, String> getListofPhones() {
 
 		JSONParser parser = new JSONParser();
@@ -310,11 +333,14 @@ public class ReadJson {
 		return phoneMap;
 
 	}
-	/**
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @return Map
+	 * @see
+	 * epita.data.access.interfaces.IReadJsonInterface#getListofSpeciality()
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public Map<Long, String> getListofSpeciality() {
 
 		JSONParser parser = new JSONParser();
@@ -342,96 +368,6 @@ public class ReadJson {
 		}
 		return specialityMap;
 
-	}
-	/**
-	 * @param id
-	 * @param firstName
-	 * @param lastName
-	 * @param email
-	 * @param gender
-	 * @param address
-	 * @param city
-	 * @param phone
-	 * @param speciality
-	 * @param image
-	 * @param opening
-	 * @return Object
-	 */
-	private static Doctor transformDoctor(Long id, String firstName,
-			String lastName, String email, String gender, String address,
-			String city, String phone, String speciality, String image,
-			Openings opening) {
-		Doctor doctor = new Doctor();
-		doctor.setId(id);
-		doctor.setFirstName(firstName);
-		doctor.setLastName(lastName);
-		doctor.setEmailId(email);
-		doctor.setGender(gender);
-		doctor.setAddress(address);
-		doctor.setCity(city);
-		doctor.setPhone(phone);
-		doctor.setSpeciality(speciality);
-		doctor.setOpenings(opening);
-		doctor.setImage(image);
-		return doctor;
-	}
-	/**
-	 * 
-	 * @param array
-	 * @param getDay
-	 * @return Object
-	 */
-	private static Days setDayList(JSONArray array, String getDay) {
-		Days days = new Days();
-		days.setDay(getDay);
-		JSONObject jsonValue = (JSONObject) array.get(0);
-		if (jsonValue != null) {
-			String closeTime = (String) jsonValue.get("close");
-			String openTime = (String) jsonValue.get("open");
-			if (!closeTime.isEmpty()) {
-				days.setCloseTime(closeTime);
-			}
-
-			if (!openTime.isEmpty()) {
-				days.setOpen(openTime);
-			}
-		} else {
-			days.setOpen("N/A");
-			days.setCloseTime("N/A");
-		}
-		return days;
-	}
-	/**
-	 * 
-	 * @param value
-	 * @return String
-	 */
-	private static String getDayOfWeek(int value) {
-		String day = "";
-		switch (value) {
-			case 1 :
-				day = "mon";
-				break;
-			case 2 :
-				day = "tue";
-				break;
-			case 3 :
-				day = "wed";
-				break;
-			case 4 :
-				day = "thu";
-				break;
-			case 5 :
-				day = "fri";
-				break;
-			case 6 :
-				day = "sat";
-				break;
-			case 7 :
-				day = "sun";
-				break;
-		}
-		return day;
 	}
 
 	/**
