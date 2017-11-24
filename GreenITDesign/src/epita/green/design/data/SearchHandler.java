@@ -10,21 +10,27 @@ import epita.green.data.access.ReadJson;
  *
  */
 public class SearchHandler {
-
+	/**
+	 * 
+	 * @return
+	 */
 	public List<Doctor> getSearchResult() {
 		List<Doctor> doctorList = null;
 		try {
 			ReadJson readJson = new ReadJson();
 			doctorList = readJson.getListOfDoctors();
 			doctorList.get(0);
-			// System.out.println(doctorList.get(0).toString());
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println(e);
+			e.printStackTrace();
 		}
 		return doctorList;
 
 	}
-
+	/**
+	 * 
+	 * @return Map
+	 */
 	public Map<Long, String> getByFirstName() {
 
 		ReadJson readJson = new ReadJson();
@@ -33,7 +39,10 @@ public class SearchHandler {
 		return firstNameMap;
 
 	}
-
+	/**
+	 * 
+	 * @return Map
+	 */
 	public Map<Long, String> getByLastName() {
 
 		ReadJson readJson = new ReadJson();
@@ -42,7 +51,10 @@ public class SearchHandler {
 		return lastNameMap;
 
 	}
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public Map<Long, String> getByAddress() {
 
 		ReadJson readJson = new ReadJson();
@@ -76,5 +88,4 @@ public class SearchHandler {
 
 	}
 
-	
 }

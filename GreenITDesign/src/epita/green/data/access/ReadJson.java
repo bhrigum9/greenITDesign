@@ -43,14 +43,6 @@ public class ReadJson {
 		Map<Long, String> phoneMap = new HashMap<>();
 		Map<Long, String> specialityMap = new HashMap<>();
 
-		/*
-		 * List<String> firstnameList= new ArrayList<>(); List<String>
-		 * lastnameList= new ArrayList<>(); List<String> addressList= new
-		 * ArrayList<>(); List<String> emailList= new ArrayList<>();
-		 * List<String> phoneList= new ArrayList<>(); List<String>
-		 * specialityList= new ArrayList<>();
-		 */
-
 		try {
 			Object obj = parser.parse(getReaderFromFile());
 			List<Object> doc = (List<Object>) (obj);
@@ -67,12 +59,9 @@ public class ReadJson {
 				String speciality = (String) rec.get("specialty");
 				String image = (String) rec.get("image");
 
-				// System.out.println(rec.get("openings").toString());
 				Openings opening = new Openings();
 				if (!rec.get("openings").toString().isEmpty()) {
-					// Object jsonOpenings = null;
 					JSONArray jsonOpenings = (JSONArray) rec.get("openings");
-					// System.out.println(jsonOpenings.toString());
 
 					if (!(jsonOpenings.equals(null))) {
 						for (int k = 0; k < jsonOpenings.size(); ++k) {
@@ -86,7 +75,6 @@ public class ReadJson {
 									String getDay = getDayOfWeek(m);
 									array.add(objects.get(getDay));
 									daysList.add(setDayList(array, getDay));
-									// System.out.println(daysList.toString());
 									day.addAll(daysList);
 								}
 								opening.setDays(day);
@@ -100,33 +88,26 @@ public class ReadJson {
 					phoneMap.put(id, phone);
 					specialityMap.put(id, speciality);
 
-					/*
-					 * lastnameList.add(lastName); addressList.add(address);
-					 * emailList.add(email); phoneList.add(phone);
-					 * specialityList.add(speciality)
-					 */;
-					// System.out.println(opening.toString());
 				}
 				Doctor doctor = transformDoctor(id, firstName, lastName, email,
 						gender, address, city, phone, speciality, image,
 						opening);
 				doctorList.add(doctor);
 			}
-			// System.out.print(Arrays.asList(doctorList).toString() );
-			// System.out.print(Arrays.asList(firstNameMap).toString());
-			// System.out.print(Arrays.asList(lastNameMap).toString());
-			// System.out.print(Arrays.asList(addressMap).toString());
-			// System.out.print(Arrays.asList(emailMap).toString());
-			//
-			// System.out.print("\n\n\n");
+
 		} catch (FileNotFoundException e) {
+			System.out.println(e);
 			e.printStackTrace();
 		} catch (IOException e) {
+			System.out.println(e);
 			e.printStackTrace();
 		}
 		return doctorList;
 	}
-
+	/**
+	 * 
+	 * @return Map
+	 */
 	@SuppressWarnings("unchecked")
 	public Map<Long, Doctor> getListById() {
 
@@ -157,13 +138,16 @@ public class ReadJson {
 
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			System.out.println(e);
 			e.printStackTrace();
 		}
 		return listById;
 
 	}
-
+	/**
+	 * 
+	 * @return Map
+	 */
 	@SuppressWarnings("unchecked")
 	public Map<Long, String> getListofFirstNames() {
 
@@ -182,19 +166,22 @@ public class ReadJson {
 
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			System.out.println(e);
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.out.println(e);
 			e.printStackTrace();
 		} catch (org.json.simple.parser.ParseException e) {
-			// TODO Auto-generated catch block
+			System.out.println(e);
 			e.printStackTrace();
 		}
 		return firstNameMap;
 
 	}
-
+	/**
+	 * 
+	 * @return Map
+	 */
 	@SuppressWarnings("unchecked")
 	public Map<Long, String> getListofLastNames() {
 
@@ -212,19 +199,22 @@ public class ReadJson {
 
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			System.out.println(e);
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.out.println(e);
 			e.printStackTrace();
 		} catch (org.json.simple.parser.ParseException e) {
-			// TODO Auto-generated catch block
+			System.out.println(e);
 			e.printStackTrace();
 		}
 		return lastNameMap;
 
 	}
-
+	/**
+	 * 
+	 * @return Map
+	 */
 	@SuppressWarnings("unchecked")
 	public Map<Long, String> getListofAddress() {
 
@@ -242,19 +232,22 @@ public class ReadJson {
 
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			System.out.println(e);
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.out.println(e);
 			e.printStackTrace();
 		} catch (org.json.simple.parser.ParseException e) {
-			// TODO Auto-generated catch block
+			System.out.println(e);
 			e.printStackTrace();
 		}
 		return addressMap;
 
 	}
-
+	/**
+	 * 
+	 * @return Map
+	 */
 	@SuppressWarnings("unchecked")
 	public Map<Long, String> getListofEmails() {
 
@@ -272,19 +265,22 @@ public class ReadJson {
 
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			System.out.println(e);
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.out.println(e);
 			e.printStackTrace();
 		} catch (org.json.simple.parser.ParseException e) {
-			// TODO Auto-generated catch block
+			System.out.println(e);
 			e.printStackTrace();
 		}
 		return emailMap;
 
 	}
-
+	/**
+	 * 
+	 * @return Map
+	 */
 	@SuppressWarnings("unchecked")
 	public Map<Long, String> getListofPhones() {
 
@@ -302,19 +298,22 @@ public class ReadJson {
 
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			System.out.println(e);
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.out.println(e);
 			e.printStackTrace();
 		} catch (org.json.simple.parser.ParseException e) {
-			// TODO Auto-generated catch block
+			System.out.println(e);
 			e.printStackTrace();
 		}
 		return phoneMap;
 
 	}
-
+	/**
+	 * 
+	 * @return Map
+	 */
 	@SuppressWarnings("unchecked")
 	public Map<Long, String> getListofSpeciality() {
 
@@ -332,13 +331,13 @@ public class ReadJson {
 
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			System.out.println(e);
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.out.println(e);
 			e.printStackTrace();
 		} catch (org.json.simple.parser.ParseException e) {
-			// TODO Auto-generated catch block
+			System.out.println(e);
 			e.printStackTrace();
 		}
 		return specialityMap;
@@ -356,7 +355,7 @@ public class ReadJson {
 	 * @param speciality
 	 * @param image
 	 * @param opening
-	 * @return
+	 * @return Object
 	 */
 	private static Doctor transformDoctor(Long id, String firstName,
 			String lastName, String email, String gender, String address,
@@ -376,7 +375,12 @@ public class ReadJson {
 		doctor.setImage(image);
 		return doctor;
 	}
-
+	/**
+	 * 
+	 * @param array
+	 * @param getDay
+	 * @return Object
+	 */
 	private static Days setDayList(JSONArray array, String getDay) {
 		Days days = new Days();
 		days.setDay(getDay);
@@ -397,7 +401,11 @@ public class ReadJson {
 		}
 		return days;
 	}
-
+	/**
+	 * 
+	 * @param value
+	 * @return String
+	 */
 	private static String getDayOfWeek(int value) {
 		String day = "";
 		switch (value) {
@@ -425,6 +433,11 @@ public class ReadJson {
 		}
 		return day;
 	}
+
+	/**
+	 * 
+	 * @return Object
+	 */
 	private Reader getReaderFromFile() {
 		InputStream stream = this.getClass()
 				.getResourceAsStream("/designgreendata.json");

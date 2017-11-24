@@ -2,6 +2,10 @@ package epita.green.design.data;
 
 import java.util.List;
 
+/**
+ * @author Bhrigu Mahajan
+ *
+ */
 public class Openings {
 
 	private List<Days> days;
