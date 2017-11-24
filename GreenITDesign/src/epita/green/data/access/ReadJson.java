@@ -140,8 +140,8 @@ public class ReadJson implements IReadJsonInterface {
 				String city = (String) rec.get("city");
 				String phone = (String) rec.get("phone");
 				String speciality = (String) rec.get("specialty");
+				String image = (String) rec.get("image");
 
-				String image = null;
 				Openings opening = null;
 				Doctor doctor = ReadJsonStaticMethods.transformDoctor(id,
 						firstName, lastName, email, gender, address, city,
