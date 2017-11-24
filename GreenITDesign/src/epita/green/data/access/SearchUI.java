@@ -115,17 +115,4 @@ public class SearchUI implements ISearchUIInterface {
 			ISearchImplInterface searchImplInterface) {
 		this.searchImplInterface = searchImplInterface;
 	}
-
-	public static void main(String a[])
-			throws ParseException, org.json.simple.parser.ParseException {
-
-		SearchUI searchUI = new SearchUI();
-		try {
-			List<Doctor> results;
-			results = searchUI.getDataByFirstName("A");
-
-			System.out.println(results.toString());
-		} catch (ParseException e) {
-		}
-	}
 }
