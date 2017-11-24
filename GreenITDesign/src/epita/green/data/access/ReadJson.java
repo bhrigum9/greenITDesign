@@ -16,7 +16,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import epita.data.access.interfaces.IReadJsonInterface;
-import epita.green.design.data.Days;
 import epita.green.design.data.Doctor;
 import epita.green.design.data.Openings;
 import epita.green.statics.design.methods.ReadJsonStaticMethods;
@@ -71,25 +70,25 @@ public class ReadJson implements IReadJsonInterface {
 				if (!rec.get("openings").toString().isEmpty()) {
 					JSONArray jsonOpenings = (JSONArray) rec.get("openings");
 
-					if (!(jsonOpenings.equals(null))) {
-						for (int k = 0; k < jsonOpenings.size(); ++k) {
-							JSONObject objects = (JSONObject) jsonOpenings
-									.get(0);
-							for (int j = 0; j < objects.size(); j++) {
-								List<Days> day = new ArrayList<>();
-								for (int m = 1; m < 8; m++) {
-									List<Days> daysList = new ArrayList<>();
-									JSONArray array = new JSONArray();
-									String getDay = ReadJsonStaticMethods
-											.getDayOfWeek(m);
-									array.add(objects.get(getDay));
-									daysList.add(ReadJsonStaticMethods
-											.setDayList(array, getDay));
-									day.addAll(daysList);
-								}
-								opening.setDays(day);
+					if (!(rec.get("openings").equals(""))) {
+						JSONArray openingss = (JSONArray) rec.get("openings");
+						System.out.println(openingss);
+						JSONObject size = (JSONObject) openingss.get(0);
+						int k = size.keySet().size();
+						String day = "";
+						List<String> days = new ArrayList<>();
+						for (int j = 1; j < 8; j++) {
+							if (size.containsKey(
+									ReadJsonStaticMethods.getDayOfWeek(j))) {
+								day = ReadJsonStaticMethods.getDayOfWeek(j);
+								JSONObject timings = (JSONObject) size.get(
+										ReadJsonStaticMethods.getDayOfWeek(j));
+								String timing = timings.toString();
+								System.out.println(timings);
 							}
+							days.add(day);
 						}
+						opening.setDays(days);
 					}
 					firstNameMap.put(id, firstName);
 					lastNameMap.put(id, lastName);
@@ -141,8 +140,29 @@ public class ReadJson implements IReadJsonInterface {
 				String phone = (String) rec.get("phone");
 				String speciality = (String) rec.get("specialty");
 				String image = (String) rec.get("image");
-
-				Openings opening = null;
+				Openings opening = new Openings();
+				if (!(rec.get("openings").equals(""))) {
+					JSONArray openingss = (JSONArray) rec.get("openings");
+					System.out.println(openingss);
+					JSONObject size = (JSONObject) openingss.get(0);
+					String day = "";
+					List<String> days = new ArrayList<>();
+					StringBuffer sb = new StringBuffer();
+					for (int j = 1; j < 8; j++) {
+						if (size.containsKey(
+								ReadJsonStaticMethods.getDayOfWeek(j))) {
+							day = ReadJsonStaticMethods.getDayOfWeek(j);
+							JSONObject timings = (JSONObject) size
+									.get(ReadJsonStaticMethods.getDayOfWeek(j));
+							String timing = timings.toString();
+							sb.append(day);
+							sb.append("-");
+							sb.append(timing);
+						}
+					}
+					days.add(sb.toString());
+					opening.setDays(days);
+				}
 				Doctor doctor = ReadJsonStaticMethods.transformDoctor(id,
 						firstName, lastName, email, gender, address, city,
 						phone, speciality, image, opening);

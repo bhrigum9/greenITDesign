@@ -76,7 +76,7 @@
 					<th>Phone</th>
 					<th>Address</th>
 					<th>Gender</th>
-					<!-- <th>Opening Hours</th>  -->
+					<th>Opening Timings</th>  
 				</tr>
 			</thead>
   
@@ -93,7 +93,7 @@
 				<td>${identity.phone }</td>
 				<td>${identity.address} ${identity.city}</td>
 				<td>${identity.gender}</td>
-				<td></td>
+				<td>${identity.openings.days}</td>
 			  </tr>
 			</c:forEach>
 		</table>

@@ -8,12 +8,12 @@ import java.util.List;
  */
 public class Openings {
 
-	private List<Days> days;
+	private List<String> days;
 
 	/**
 	 * @return the days
 	 */
-	public List<Days> getDays() {
+	public List<String> getDays() {
 		return days;
 	}
 
@@ -21,7 +21,7 @@ public class Openings {
 	 * @param days
 	 *            the days to set
 	 */
-	public void setDays(List<Days> days) {
+	public void setDays(List<String> days) {
 		this.days = days;
 	}
 

@@ -63,7 +63,7 @@ public final class ReadJsonStaticMethods {
 			String closeTime = (String) jsonValue.get("close");
 			String openTime = (String) jsonValue.get("open");
 			if (!closeTime.isEmpty()) {
-				days.setCloseTime(closeTime);
+				days.setClose(closeTime);
 			}
 
 			if (!openTime.isEmpty()) {
@@ -71,7 +71,7 @@ public final class ReadJsonStaticMethods {
 			}
 		} else {
 			days.setOpen("N/A");
-			days.setCloseTime("N/A");
+			days.setClose("N/A");
 		}
 		return days;
 	}
